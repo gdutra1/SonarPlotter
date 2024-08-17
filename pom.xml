@@ -11,4 +11,13 @@
         <maven.compiler.target>11</maven.compiler.target>
         <exec.mainClass>com.radarplotter.RadarPlotter</exec.mainClass>
     </properties>
+    
+    <dependencies>
+        <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-geometry-core -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-geometry-core</artifactId>
+            <version>1.0</version>
+        </dependency>
+    </dependencies>
 </project>
