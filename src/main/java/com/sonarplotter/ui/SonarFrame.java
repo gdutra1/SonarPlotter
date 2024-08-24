@@ -1,12 +1,16 @@
 package com.sonarplotter.ui;
 
+import com.sonarplotter.io.TxtReader;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.util.ArrayList;
 import javax.swing.JFrame;
 import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
 import org.apache.commons.geometry.euclidean.twod.PolarCoordinates;
 
 public class SonarFrame extends JFrame{
+    
+    private String filePath = "";
     
     @Override
     public void paint(Graphics g){
@@ -28,20 +32,21 @@ public class SonarFrame extends JFrame{
         g.drawLine(50+500/2, 300, 125, 125);
         g.drawLine(50+500/2, 300, 125+350, 125);
         
-        PolarCoordinates pc1 = PolarCoordinates.of(200, Math.toRadians(90));
-        PolarCoordinates pc2 = PolarCoordinates.of(100, Math.toRadians(90));
-        PolarCoordinates pc3 = PolarCoordinates.of(230, Math.toRadians(70));
-        PolarCoordinates pc4 = PolarCoordinates.of(140, Math.toRadians(123));
-        
         g.setColor(Color.RED);
-        g.fillOval((int) pc1.toCartesian().getX()+300-3, 300-(int) pc1.toCartesian().getY()-3, 6, 6);
-        g.fillOval((int) pc2.toCartesian().getX()+300-3, 300-(int) pc2.toCartesian().getY()-3, 6, 6);
-        g.fillOval((int) pc3.toCartesian().getX()+300-3, 300-(int) pc3.toCartesian().getY()-3, 6, 6);
-        g.fillOval((int) pc4.toCartesian().getX()+300-3, 300-(int) pc4.toCartesian().getY()-3, 6, 6);
+        ArrayList<PolarCoordinates>  polarCoordinates = TxtReader.readPolarCoordinatesFromFile(filePath);
+        for(PolarCoordinates pc: polarCoordinates){
+            if(pc.getRadius()>250) pc = PolarCoordinates.of(250, pc.getAzimuth());
+                
+            int x = (int) pc.toCartesian().getX()+300-3;
+            int y = 300-(int) pc.toCartesian().getY()-3;
+            
+            g.fillOval(x, y, 6, 6);
+        }
     }
 
-    public SonarFrame(){
-        super("Radar");
+    public SonarFrame(String filePath){
+        super("Sonar");
+        this.filePath = filePath;
         this.setAlwaysOnTop(true);
         this.setResizable(false);
         this.setSize(600, 400);
