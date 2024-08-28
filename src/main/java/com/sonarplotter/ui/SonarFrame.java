@@ -39,6 +39,9 @@ public class SonarFrame extends JFrame{
         
         //Define a cor como vermelho
         g.setColor(Color.RED);
+
+        /*O código seguinte percorre uma ArrayList das coordenadas polares dos pontos de deteccção recuperados do arquivo
+          e os desenha em vermelho na interface*/
         ArrayList<PolarCoordinates>  polarCoordinates = TxtReader.readPolarCoordinatesFromFile(filePath);
         for(PolarCoordinates pc: polarCoordinates){
             if(pc.getRadius()>250) pc = PolarCoordinates.of(250, pc.getAzimuth());
