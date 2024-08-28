@@ -13,6 +13,7 @@ public class TxtReader {
         File file = new File(filePath);
         String content = new String();
 
+        //O código a seguir cria uma string com todas as coordenads recuperadas a partir do arquivo
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
             StringBuilder sb = new StringBuilder();
             String line = br.readLine();
@@ -25,13 +26,17 @@ public class TxtReader {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-        
+
+        //Separa a string por ";"
         String[] splittedContent = content.split(";");
-        
+
+        //Percorre por um vetor das strings separadas por ";"
         for (String s : splittedContent) {
+            //Elimina os espaços(" ") e separa a string por ","
             s = s.trim();
             String[] split = s.split(",");
             try {
+                //Transforma as coordenadas recuperadas em PolarCoordinates
                 double angle = Math.toRadians(Double.parseDouble(split[0]));
                 double radius = Double.parseDouble(split[1]);
                 PolarCoordinates pc = PolarCoordinates.of(radius, angle);
