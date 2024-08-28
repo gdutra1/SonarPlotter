@@ -15,23 +15,29 @@ public class SonarFrame extends JFrame{
     @Override
     public void paint(Graphics g){
         super.paint(g);
-        
+
+        //Define a cor do fundo do Frame
         g.setColor(Color.BLACK);
         g.fillRect(0, 0, getWidth(), getHeight());
 
+        //Define a cor verde que será utilizada para desenhar a interface
         g.setColor(Color.GREEN);
 
+        //Desenha a linha "base" da interface de sonar
         g.drawLine(50, 300, 600-50, 300);
-        
+
+        //Desenha os arcos
         g.drawArc(500/2-100/2+50, 300-100/2, 100, 100, 0, 180);
         g.drawArc(500/2-200/2+50, 300-200/2, 200, 200, 0, 180);
         g.drawArc(500/2-300/2+50, 300-300/2, 300, 300, 0, 180);
         g.drawArc(500/2-400/2+50, 300-400/2, 400, 400, 0, 180);
         g.drawArc(500/2-500/2+50, 300-500/2, 500, 500, 0, 180);
-        
+
+        //Desenha linhas que dividem os arcos
         g.drawLine(50+500/2, 300, 125, 125);
         g.drawLine(50+500/2, 300, 125+350, 125);
         
+        //Define a cor como vermelho
         g.setColor(Color.RED);
         ArrayList<PolarCoordinates>  polarCoordinates = TxtReader.readPolarCoordinatesFromFile(filePath);
         for(PolarCoordinates pc: polarCoordinates){
@@ -46,7 +52,10 @@ public class SonarFrame extends JFrame{
 
     public SonarFrame(String filePath){
         super("Sonar");
+        //Define o caminho para o arquivo
         this.filePath = filePath;
+
+        //Funções acessórias para a definição do comportamento do Frame
         this.setAlwaysOnTop(true);
         this.setResizable(false);
         this.setSize(600, 400);
